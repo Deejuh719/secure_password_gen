@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{%load static%}
+{% block content %}
+{% if user.is_authenticated %}
+<h2 class="center-text">I Need a Password</h2>
+<br />
+<div class="page top active center-text">
+        <h4>Welcome Back {{user.username}}!</h4>
+        <p>Do you require a <a href="#">new password</a>?</p>
+        <p>Or do you want to see your <a href="#">other passwords</a>?</p>
+</div>
+
+{% else %}
+
+<h3 style="text-align: center;">Welcome to I Need A Password!</h3>
+<br />
+<details>
+    <img class="centered" src="https://i.imgflip.com/5ie9wn.jpg" alt="Spongebob suspicious face" 
+    width="250" height="300">
+        <summary>
+            <article class="round primary small-elevate">
+                <nav>
+                    <div class="max"><h5>We know why you're here...</h5></div>
+                    <i>expand_more</i>
+                </nav>
+            </article>
+        </summary>
+        <p class="center-text">Everything requires passwords now, this is a given. Making passwords to the standards
+            of the website you're using is a pain. We're here to help.
+            "I Need a Password" is a password manager that will help you create and store passwords 
+            for every website you use. It's easy to use and will help keep your passwords safe.
+        </p>
+</details>
+    <div class="large-space"></div>
+<details>
+        <summary>
+            <article class="round small-elevate">
+                <nav>
+                    <div class="max"><h5>How does it work?</h5></div>
+                    <i>expand_more</i>
+                </nav>
+            </article>
+        </summary>
+        <img class="centered" src="https://www.numerama.com/wp-content/uploads/2017/04/fry-futurama-6-futurama-fry-gif.jpg"
+            alt="Fry suspicious face" width="350" height="250">
+        <p class="center-text">Simple!</p>
+        <p class="center-text">Once you create a new account (button on the left there), you simply click "Create
+            New Password" and fill out what is required. Hit "Save", and you're done! The site does
+            the remembering for you! So, no more password books or sticky notes. Your password is
+            strong and safe.
+        </p>
+        <p class="logout-center-text">So what are you waiting for? Create an account!</p>
+    </div>
+    <br />
+    <div class="medium-space">
+        <button class="small tertiary small-elevate" id="login-signup-buttons">
+            <img src="https://img.icons8.com/?size=100&id=61050&format=png&color=000000" alt="log in icon" width="20" height="20">
+            <a href="{%url 'login'%}">Log In</a></button>
+        <button class="small primary small-elevate" id="login-signup-buttons">
+            <img src="https://img.icons8.com/?size=100&id=23374&format=png&color=000000" alt="sign up icon" width="20" height="20">
+            <a href="{%url 'signup'%}">Sign Up</a></button>
+        </div>
+</details>
+{% endif %}
+{% endblock content %}

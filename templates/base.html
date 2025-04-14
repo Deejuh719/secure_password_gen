@@ -1,0 +1,66 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/beercss@3.9.7/dist/cdn/beer.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>{%block title%}Gimme Passwords Please!{%endblock title%}</title>
+</head>
+<body>
+    {% if user.is_authenticated %}
+    <nav class="tabbed">
+        <a href="{% url 'home' %}">
+            <i class="fa-solid fa-house"></i>
+            <div>Home</div>
+        </a>
+        <a href="#">
+            <i>
+                <i class="fa-solid fa-circle-plus"></i>
+            </i>
+            <div>Create New Password</div>
+        </a>
+        <a href="#">
+            <i class="fa-solid fa-lock"></i>
+            <div>Your Passwords</div>
+        </a>
+        <a href="#">
+            <i class="fa-solid fa-user-gear"></i>
+            <div>Account Settings</div>
+        </a>
+        <a href="#" onclick="document.getElementById('logout').submit()" class="btn">
+            <i class="fas fa-sign-out-alt"></i>
+            <div>Log Out</div>
+        </a>
+    </nav>
+    
+    <form action="{% url 'logout' %}" id="logout" method="post" style="display: none;">
+        {% csrf_token %}
+    </form>
+
+    {% else %}
+    
+    <nav class="tabbed small">
+        <a href="{% url 'home' %}">
+            <i class="fa-solid fa-house"></i>
+            <div>Home</div>
+        </a>
+        <a href="{% url 'signup' %}">
+            <i class="fa-solid fa-user-plus"></i>
+            <div>Create Account</div>
+        </a>
+        <a href="{% url 'login' %}">
+            <i class="fa-solid fa-right-to-bracket"></i>
+            <div>Log In</div>
+        </a>
+    </nav>
+    {% endif %}
+    <main class="responsive">
+        {%block content%}
+        {%endblock content%}
+    </main>
+</body>
+<script type="module" src="https://cdn.jsdelivr.net/npm/beercss@3.9.7/dist/cdn/beer.min.js"></script>
+</html>

@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block title %}Sign Up{% endblock title %}
+
+{% block content %}
+<h2 style="text-align: center;">You Look New</h2>
+<form class="center-text" method="post">
+    {% csrf_token %}
+    <fieldset>
+        <legend>Sign Up</legend>
+        <span>Username</span>
+        <div class="field border fill">
+            {{ form.user_id }}
+        </div>
+        <span>Email</span>
+        <div class="field border fill">
+            {{ form.email }}
+            
+        </div>
+        <span>Create Password</span>
+        <div class="field border fill">
+            {{ form.password}}
+        </div>
+        <span>Confirm Password</span>
+        <div class="field border fill">
+            {{ form.password }}
+        </div>
+    </fieldset>
+    <button class="small small-elevate fill" type="submit">
+    <i>
+        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z"/></svg>
+    </i>
+    Sign Up
+</button>
+</form>
+{% endblock content %}

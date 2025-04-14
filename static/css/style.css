@@ -1,0 +1,21 @@
+.centered {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.center-heading {
+    text-align: center;
+    padding: 2%;
+}
+
+.center-text {
+    text-align: center;
+    padding: 2%;
+    font-size: 1.2em;
+}
+
+#login-signup-buttons {
+    display: block;
+    margin: auto;
+}
