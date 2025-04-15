@@ -3,15 +3,33 @@
 
 {% block title %}Log In{% endblock title %}
 {% block content %}
-<h2>Who... Are... You?</h2>
+<h2 class="center-heading">Who... Are... You?</h2>
 <form method="post">
     {% csrf_token %}
-    {{ form | crispy }}
+    <fieldset>
+        {{ form.non_field_errors }}
+        <legend> Username </legend>
+        <div class="field round border fill">
+            {{ form.username.errors }}
+            {{ form.username }}
+        </div>
+        <legend> Password </legend>
+            <div class="field round border fill">
+                {{ form.password.errors }}
+                {{ form.password }}
+            </div>
+    </fieldset>
+    <br />
     <button class="small primary small-elevate " type="submit">
-        <i>
-            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z"/></svg>
-        </i>
+        <i class="fa-solid fa-check"></i>
         Log In
     </button>
 </form>
+<div class="right-align">
+    <a href="{% url 'password_reset' %}">
+        <button class="small error small-elevate">
+            Forgot Password? 
+        </button>
+    </a>
+</div>
 {% endblock content %}
