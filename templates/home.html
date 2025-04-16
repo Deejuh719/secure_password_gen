@@ -4,8 +4,8 @@
 {% if user.is_authenticated %}
 <div class="page top active center-text">
         <h4>Welcome Back {{user.username}}!</h4>
-        <p>Do you require a <a href="#">new password</a>?</p>
-        <p>Or do you want to see your <a href="#">other passwords</a>?</p>
+        <p>Do you require a <a href="{% url 'password_create' %}">new password</a>?</p>
+        <p>Or do you want to see your <a href="{% url 'password_list' %}">other passwords</a>?</p>
 </div>
 
 {% else %}
