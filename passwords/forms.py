@@ -4,7 +4,7 @@ from .models import Password
 
 class PasswordGeneratorForm(forms.ModelForm):
     app_name = forms.CharField(max_length=100, label="App/Site Name")
-    url = forms.URLField(required=False)
+    url = forms.URLField(required=False, help_text="Optional", widget=forms.URLInput(attrs={'placeholder': 'https://example.com'}))
     length = forms.IntegerField(
         label="Password Length",
         min_value=8,
