@@ -10,7 +10,7 @@
 
 {% else %}
 
-<h3 style="text-align: center;">Welcome to I Need A Password!</h3>
+<h3 style="text-align: center;">Welcome to "Gimme Passwords Please"!</h3>
 <br />
 <details>
     <img class="centered" src="https://i.imgflip.com/5ie9wn.jpg" alt="Spongebob suspicious face" 
@@ -24,9 +24,10 @@
             </article>
         </summary>
         <p class="center-text">Everything requires passwords now, this is a given. Making passwords to the standards
-            of the website you're using is a pain. We're here to help.
-            "I Need a Password" is a password manager that will help you create and store passwords 
-            for every website you use. It's easy to use and will help keep your passwords safe.
+            of the website you're using is a pain. Let alone a unique one that you haven't used 75 other places... 
+            <br /> We're here to help. <br />
+            "Gimme Passwords Please" is a program that will help you create and store passwords 
+            for every website or app you use.
         </p>
 </details>
     <div class="large-space"></div>
@@ -42,22 +43,29 @@
         <img class="centered" src="https://www.numerama.com/wp-content/uploads/2017/04/fry-futurama-6-futurama-fry-gif.jpg"
             alt="Fry suspicious face" width="350" height="250">
         <p class="center-text">Simple!</p>
-        <p class="center-text">Once you create a new account (button on the left there), you simply click "Create
-            New Password" and fill out what is required. Hit "Save", and you're done! The site does
-            the remembering for you! So, no more password books or sticky notes. Your password is
-            strong and safe.
+        <p class="center-text">Once you create a new account, you simply click "Create New Password",
+            fill out the form, hit the button, and watch the magic happen! ...Sorta... Your password 
+            is strong, safe, and not floating around in the ether for everyone. Plus! The site does
+            the remembering for you so, no more password books or sticky notes eating your desk. 
+            (Cuz, let's be honest, your brain space is better used for remembering songs and obscure
+            facts about the universe anyway.)<br />
         </p>
-        <p class="logout-center-text">So what are you waiting for? Create an account!</p>
+        <p class="center-align">So what are you waiting for? Create an account!</p>
     </div>
     <br />
-    <div class="medium-space">
+    <div class="small-space">
+        <a href="{% url 'login' %}">
         <button class="small tertiary small-elevate" id="login-signup-buttons">
             <img src="https://img.icons8.com/?size=100&id=61050&format=png&color=000000" alt="log in icon" width="20" height="20">
-            <a href="{%url 'login'%}">Log In</a></button>
+            Log In</button></a>
+        <div class="small-space"></div>
+        <a href="{% url 'signup' %}">
         <button class="small primary small-elevate" id="login-signup-buttons">
             <img src="https://img.icons8.com/?size=100&id=23374&format=png&color=000000" alt="sign up icon" width="20" height="20">
-            <a href="{%url 'signup'%}">Sign Up</a></button>
-        </div>
+            Sign Up</button></a>
+    </div>
 </details>
+<div class="large-space"></div>
+<p> </p>
 {% endif %}
 {% endblock content %}

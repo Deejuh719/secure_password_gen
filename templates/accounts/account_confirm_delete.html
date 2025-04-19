@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}I'ma Head Out{% endblock title %}
+
+{% block content %}
+<div class="page top active center-text">
+    <h4> So you wanna delete your account? </h4>
+    <h6>We're sad to see you go, but we understand. </h6>
+
+    <fieldset>
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+            <p class="error">Are you sure you want to delete your account? 
+                This action cannot be undone.</p>
+            <div class="field border round fill">
+            <legend>Password:</legend>
+                {{ form.password.errors }}
+                {{ form.password }}
+            </div>
+            <button type="submit" class="error small-elevate">
+                <i class="fa-solid fa-user-slash"></i>
+                Permanently Delete Account</button>
+        </form>
+        <div class="small-space"></div>
+        <a  href="{% url 'account_settings' %}">
+            <button type="submit" class="primary small-elevate">
+                <i class="fa-solid fa-arrow-rotate-left"></i>
+                Just Kidding :)</button>
+        </a>
+    </fieldset>
+{% endblock content %}

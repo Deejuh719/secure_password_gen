@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Alter Your Account{% endblock %}
+
+{% block content %}
+<div class="page top active center-text">
+    <h4>Account Settings</h4>
+    <h6>Here you can change your password, delete your account, and other things.</h6>
+
+    <fieldset>
+        <legend> Your Personals: </legend>
+        <form action="" method="post">
+            {% csrf_token %}
+            <label>Username:</label>
+            <div class="field border round fill">
+                {{ form.username.errors }}
+                {{ form.username }}
+            </div>
+            <label>Email:</label>
+            <div class="field border round fill">
+                {{ form.email.errors }}
+                {{ form.email }}
+            </div>
+            <button type="submit" class="primary small-elevate">
+                <i class="fa-solid fa-check"></i>
+                Save Changes</button>
+        </form>
+    </fieldset>
+
+    <fieldset>
+        <legend> Security: </legend>
+        <a href="{% url 'password_change' %}">
+            <button type="submit" class="primary small-elevate">
+                <i class="fa-solid fa-key"></i>
+                Change Password</button>
+        </a>
+        <!-- Doesn't truly work, will add later for actual users when I make public -->
+        <a href="#">
+            <button type="submit" class="fill small-elevate" disabled>
+                <i class="fa-solid fa-shield-cat"></i>
+                Two-Factor Authentication</button>
+        </a>
+        
+    </fieldset>
+
+    <fieldset>
+        <legend> Danger Zone: </legend>
+        <a href="{% url 'account_confirm_delete' %}">
+            <button type="submit" class="small-elevate error">
+                <i class="fa-solid fa-user-slash"></i>
+                Delete Account</button>
+        </a>
+    </fieldset>
+</div>
+{% endblock content %}
