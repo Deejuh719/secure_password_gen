@@ -2,6 +2,7 @@ from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from .models import CustomUser
 from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
+from django import forms
 
 class CustomUserCreationForm(UserCreationForm):
     class Meta(UserCreationForm):
@@ -23,6 +24,23 @@ class CustomUserCreationForm(UserCreationForm):
         return password2
 
 class CustomUserChangeForm(UserChangeForm):
+    current_password = forms.CharField(
+        widget=forms.PasswordInput,
+        label="Current Password",
+        required=True
+    )
     class Meta:
         model = CustomUser
-        fields = '__all__'
+        fields = ('email',)
+
+    def clean_current_password(self):
+        current_password = self.cleaned_data.get("current_password")
+        if not self.instance.check_password(current_password):
+            raise forms.ValidationError("Current password is incorrect.")
+        return current_password
+    
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        if commit:
+            user.save()
+        return user

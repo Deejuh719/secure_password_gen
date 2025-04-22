@@ -5,22 +5,23 @@
 {% block content %}
 <div class="page top active center-text">
     <h4>Account Settings</h4>
-    <h6>Here you can change your password, delete your account, and other things.</h6>
+    <p class="centered-text">Here you can change your password, delete your account, and other things.</p>
 
     <fieldset>
         <legend> Your Personals: </legend>
-        <form action="" method="post">
+        <form method="post">
             {% csrf_token %}
-            <label>Username:</label>
+            {{ form.non_field_errors }}
+            <label style="font-size: medium;">Email:</label>
             <div class="field border round fill">
-                {{ form.username.errors }}
-                {{ form.username }}
-            </div>
-            <label>Email:</label>
-            <div class="field border round fill">
-                {{ form.email.errors }}
                 {{ form.email }}
             </div>
+            <span class="helptext"> {{ form.email.errors }} </span>
+            <label style="font-size: medium;"> Enter your password to save changes: </label>
+            <div class="field border round fill">
+                {{ form.current_password }}
+            </div>
+            <span class="helptext"> {{ form.current_password.errors }} </span>
             <button type="submit" class="primary small-elevate">
                 <i class="fa-solid fa-check"></i>
                 Save Changes</button>
@@ -29,7 +30,7 @@
 
     <fieldset>
         <legend> Security: </legend>
-        <a href="{% url 'password_change' %}">
+        <a href="{% url 'reset_password' %}">
             <button type="submit" class="primary small-elevate">
                 <i class="fa-solid fa-key"></i>
                 Change Password</button>

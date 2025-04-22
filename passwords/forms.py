@@ -1,5 +1,5 @@
 from django import forms
-from .models import Password
+from .models import Password, PasswordUpdate
 
 
 class PasswordGeneratorForm(forms.ModelForm):
@@ -19,3 +19,8 @@ class PasswordGeneratorForm(forms.ModelForm):
     class Meta:
         model = Password
         fields = ['app_name', 'url', 'username']
+
+class PasswordUpdateForm(forms.ModelForm):
+    class Meta:
+        model = PasswordUpdate
+        fields = ['password']

@@ -12,23 +12,23 @@
         <span>Username</span>
         <div class="field border round fill">
             {{ form.username }}
-            {{ form.username.errors }}
         </div>
+        <span class="helptext"> {{ form.username.errors}} </span>
         <span>Email</span>
         <div class="field border round fill">
             {{ form.email }}
-            {{ form.email.errors }}
         </div>
+        <span class="helptext"> {{ form.email.errors }} </span>
         <span>Create Password</span>
         <div class="field border round fill">
             {{ form.password1 }}
-            {{ form.password1.errors }}
         </div>
+        <span class="helptext"> {{ form.password1.errors }} </span>
         <span>Confirm Password</span>
         <div class="field border round fill">
             {{ form.password2 }}
-            {{ form.password2.errors }}
         </div>
+        <span class="helptext"> {{ form.password2.errors }} </span>
     </fieldset>
     <button class="small small-elevate fill" type="submit">
     <i class="fa-solid fa-user-plus"></i>

@@ -28,3 +28,7 @@ class Password(models.Model):
 
     def get_delete_url(self):
         return reverse("password_delete", args=[str(self.id)])
+
+class PasswordUpdate(models.Model):
+    password = models.CharField(max_length=255)
+    updated_at = models.DateTimeField(auto_now=True)
