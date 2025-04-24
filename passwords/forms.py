@@ -1,5 +1,5 @@
 from django import forms
-from .models import Password, PasswordUpdate
+from .models import Password
 
 
 class PasswordGeneratorForm(forms.ModelForm):
@@ -21,6 +21,21 @@ class PasswordGeneratorForm(forms.ModelForm):
         fields = ['app_name', 'url', 'username']
 
 class PasswordUpdateForm(forms.ModelForm):
+    password = forms.CharField(
+        widget=forms.PasswordInput,
+        required=True,
+    )
     class Meta:
-        model = PasswordUpdate
-        fields = ['password']
+        model = Password
+        fields = ['app_name', 'url', 'username']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['password'].widget.attrs.update({'placeholder': 'Enter new password'})
+
+    def save(self, commit=True):
+        instance = super().save(commit=False)
+        instance.set_password(self.cleaned_data['password'])
+        if commit:
+            instance.save()
+        return instance

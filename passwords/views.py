@@ -2,7 +2,7 @@ from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from .models import Password
-from .forms import PasswordGeneratorForm
+from .forms import PasswordGeneratorForm, PasswordUpdateForm
 from .utils import generate_password
 from  django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -41,11 +41,19 @@ class PasswordCreateView(LoginRequiredMixin, CreateView):
 
         return super().form_valid(form)
 
-class PasswordUpdateView(UpdateView):
+class PasswordUpdateView(LoginRequiredMixin, UpdateView):
     model = Password
+    form_class = PasswordUpdateForm
     template_name = 'passwords/password_update.html'
-    fields = ['app_name', 'url', 'username', 'app_pass']
     success_url = reverse_lazy('password_list')
+
+    def get_queryset(self):
+        return super().get_queryset().filter(user=self.request.user)
+    
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['instance'] = self.object
+        return kwargs
 
 class PasswordDeleteView(DeleteView):
     model = Password
