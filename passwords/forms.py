@@ -20,6 +20,7 @@ class PasswordGeneratorForm(forms.ModelForm):
         model = Password
         fields = ['app_name', 'url', 'username']
 
+# TODO: Make this like... idk... update the damn passwords?? replace them.... that thing
 class PasswordUpdateForm(forms.ModelForm):
     password = forms.CharField(
         widget=forms.PasswordInput,

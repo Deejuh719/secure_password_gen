@@ -7,7 +7,7 @@ from .utils import generate_password
 from  django.contrib.auth.mixins import LoginRequiredMixin
 
 # Create your views here.
-
+# TODO: Maybe make this allow you to filter out passwords by app name? date created??
 class PasswordListView(ListView):
     model = Password
     template_name = 'passwords/password_list.html'

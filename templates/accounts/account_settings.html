@@ -9,6 +9,7 @@
 
     <fieldset>
         <legend> Your Personals: </legend>
+        <div class="small-spacer"></div>
         <form method="post">
             {% csrf_token %}
             {{ form.non_field_errors }}
@@ -26,31 +27,76 @@
                 <i class="fa-solid fa-check"></i>
                 Save Changes</button>
         </form>
+        <div class="small-space"></div>
     </fieldset>
 
     <fieldset>
         <legend> Security: </legend>
+        <fieldset>
+            <legend>Two-Factor Authentication</legend>
+            {% if has_2fa %}
+            <p>Two-Factor Authentication is <strong>enabled</strong> for your account.</p>
+            <a href="{% url 'disable_2fa' %}">
+                <button class="error small-elevate">
+                    <i class="fa-solid fa-xmark"></i>
+                    Disable Two-Factor Authentication
+                </button>
+            </a>
+            {% else %}
+            <p>Two-Factor Authentication is <strong>disabled</strong> for your account.</p>
+            <p>Recommended to add 2FA for added security of your account.</p>
+            <p>To do so, you'll need an authenticator app</p>
+            <a href="{% url 'setup_2fa' %}">
+                <button class="primary small-elevate">
+                    <i class="fa-solid fa-check"></i>
+                    Enable Two-Factor Authentication
+                </button>
+            </a>
+            {% endif %}
+        </fieldset>
+        <div class="small-space"></div>
+        <fieldset> <!--TODO: Fix this shit!-->
+            <legend>Reset Your Here Password:</legend>
+            <form method="POST">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+            <div class="small-space"></div>
+                <span class="helptext"> New Password: </span>
+                    <div class="field round border fill">
+                        {{ form.new_password1 }}
+                    </div>
+                    <span class="helptext"> {{ form.new_password1.errors }} </span>
+                <div class="small-space"></div>
+                <span class="helptext"> Verify New Password: </span>
+                    <div class="field round border fill">
+                        {{ form.new_password2 }}
+                    </div>
+                    <span class="helptext"> {{ form.new_password2.errors }} </span>
+                <div class="small-space"></div>
+                <button class="button" type="submit">
+                    <i class="fa-solid fa-key"></i>
+                    Change Password
+                </button>
+            </form>
+        </fieldset>
+        <div class="small-space center-align middle"></div>
         <a href="{% url 'reset_password' %}">
             <button type="submit" class="primary small-elevate">
                 <i class="fa-solid fa-key"></i>
                 Change Password</button>
         </a>
-        <!-- Doesn't truly work, will add later for actual users when I make public -->
-        <a href="#">
-            <button type="submit" class="fill small-elevate" disabled>
-                <i class="fa-solid fa-shield-cat"></i>
-                Two-Factor Authentication</button>
-        </a>
-        
+        <div class="small-space"></div>
     </fieldset>
 
-    <fieldset>
-        <legend> Danger Zone: </legend>
+    <fieldset class="error-border">
+        <legend style="color: crimson;"> Danger Zone: </legend>
+        <div class="small-space"></div>
         <a href="{% url 'account_confirm_delete' %}">
             <button type="submit" class="small-elevate error">
                 <i class="fa-solid fa-user-slash"></i>
                 Delete Account</button>
         </a>
+        <div class="small-space"></div>
     </fieldset>
 </div>
 {% endblock content %}

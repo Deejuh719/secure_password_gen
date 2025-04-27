@@ -10,25 +10,30 @@
         {{ form.non_field_errors }}
         <legend> Username </legend>
         <div class="field round border fill">
-            {{ form.username.errors }}
-            {{ form.username }}
+            <input type="text" name="username" placeholder="Username" required id="id_username">
         </div>
         <legend> Password </legend>
             <div class="field round border fill">
-                {{ form.password.errors }}
-                {{ form.password }}
+                <input type="password" name="password" placeholder="Password" required id="id_password">
             </div>
     </fieldset>
     <br />
-    <button class="small primary small-elevate " type="submit">
+    <button class="primary small-elevate " type="submit">
         <i class="fa-solid fa-check"></i>
         Log In
     </button>
 </form>
 <div class="right-align">
     <a href="{% url 'password_reset' %}">
-        <button class="small error small-elevate">
+        <button class="error small-elevate">
             Forgot Password? 
+        </button>
+    </a>
+    <p> </p> <!-- TODO: see if this ACTUALLY works or something....-->
+    <a href="{% url 'verify_2fa' %}">
+        <button class="inverse-surface small-elevate">
+            <i class="fa-solid fa-key"></i>
+            Two-Factor Login
         </button>
     </a>
 </div>

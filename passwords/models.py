@@ -4,7 +4,6 @@ from django.urls import reverse
 from django.contrib.auth.hashers import make_password
 
 # Create your models here.
-
 class Password(models.Model):
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,

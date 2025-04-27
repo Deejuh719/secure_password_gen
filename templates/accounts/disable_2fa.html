@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Disable Two-Factor Authentication</h1>
+
+<div class="alert alert-warning">
+    <p><strong>Warning:</strong> Disabling two-factor authentication will make your account less secure.</p>
+    <p>Are you sure you want to continue?</p>
+</div>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Yes, Disable 2FA</button>
+    <a href="{% url 'account_settings' %}" class="btn btn-secondary">Cancel</a>
+</form>
+{% endblock %}
