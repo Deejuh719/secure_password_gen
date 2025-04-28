@@ -41,23 +41,17 @@ INSTALLED_APPS = [
     "crispy_bootstrap5",
     "accounts",
     "pages",
-    "django_otp", # new
-    "django_otp.plugins.otp_totp",  # new
-    "two_factor",  # new
-    'django_otp.plugins.otp_static', # new
-    "two_factor.plugins.phonenumber",  # new
     "passwords",
 ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
-
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
-    'django_otp.middleware.OTPMiddleware', #new
+    "django.contrib.messages.middleware.MessageMiddleware",
 ]
 
 ROOT_URLCONF = "core.urls"

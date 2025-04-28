@@ -8,27 +8,23 @@
     <p class="centered-text">Here you can change your password, delete your account, and other things.</p>
 
     <fieldset>
-        <legend> Your Personals: </legend>
-        <div class="small-spacer"></div>
-        <form method="post">
+        <legend>Update Your Email Address:</legend>
+        <form method="POST" action="{% url 'update_email' %}">
             {% csrf_token %}
-            {{ form.non_field_errors }}
-            <label style="font-size: medium;">Email:</label>
-            <div class="field border round fill">
-                {{ form.email }}
+            {{ email_form.non_field_errors }}
+            <label for="email">New Email Address:</label>
+            <div class="field round border fill">
+                {{ email_form.email }}
             </div>
-            <span class="helptext"> {{ form.email.errors }} </span>
-            <label style="font-size: medium;"> Enter your password to save changes: </label>
-            <div class="field border round fill">
-                {{ form.current_password }}
-            </div>
-            <span class="helptext"> {{ form.current_password.errors }} </span>
-            <button type="submit" class="primary small-elevate">
-                <i class="fa-solid fa-check"></i>
-                Save Changes</button>
+            <span class="helptext">{{ email_form.email.errors }}</span>
+            <button class="button primary small-elevate" type="submit">
+                <i class="fa-solid fa-envelope"></i>
+                Update Email
+            </button>
         </form>
-        <div class="small-space"></div>
     </fieldset>
+
+    <div class="small-space"></div>
 
     <fieldset>
         <legend> Security: </legend>
@@ -36,7 +32,14 @@
             <legend>Two-Factor Authentication</legend>
             {% if has_2fa %}
             <p>Two-Factor Authentication is <strong>enabled</strong> for your account.</p>
-            <a href="{% url 'disable_2fa' %}">
+            <a href="{% url 'two_factor:profile' %}">
+                <button class="error small-elevate">
+                    <i class="fa-solid fa-gear"></i>
+                    Manage Two-Factor Authentication
+                </button>
+            </a>
+            <div class="small-space"></div>
+            <a href="#" onclick="return confirm('Are you sure you want to disable Two-Factor Authentication?');">
                 <button class="error small-elevate">
                     <i class="fa-solid fa-xmark"></i>
                     Disable Two-Factor Authentication
@@ -46,45 +49,39 @@
             <p>Two-Factor Authentication is <strong>disabled</strong> for your account.</p>
             <p>Recommended to add 2FA for added security of your account.</p>
             <p>To do so, you'll need an authenticator app</p>
-            <a href="{% url 'setup_2fa' %}">
+            <a href="#">
                 <button class="primary small-elevate">
-                    <i class="fa-solid fa-check"></i>
+                    <i class="fa-solid fa-shield"></i>
                     Enable Two-Factor Authentication
                 </button>
             </a>
             {% endif %}
         </fieldset>
         <div class="small-space"></div>
-        <fieldset> <!--TODO: Fix this shit!-->
-            <legend>Reset Your Here Password:</legend>
-            <form method="POST">
-            {% csrf_token %}
-            {{ form.non_field_errors }}
-            <div class="small-space"></div>
-                <span class="helptext"> New Password: </span>
-                    <div class="field round border fill">
-                        {{ form.new_password1 }}
-                    </div>
-                    <span class="helptext"> {{ form.new_password1.errors }} </span>
-                <div class="small-space"></div>
-                <span class="helptext"> Verify New Password: </span>
-                    <div class="field round border fill">
-                        {{ form.new_password2 }}
-                    </div>
-                    <span class="helptext"> {{ form.new_password2.errors }} </span>
-                <div class="small-space"></div>
-                <button class="button" type="submit">
+        <fieldset>
+            <legend>Reset Your Password:</legend>
+            <form method="POST" action="{% url 'password_change' %}">
+                {% csrf_token %}
+                {{ password_form.non_field_errors }}
+                <label style="font-size: medium;">Current Password:</label>
+                <div class="field round border fill">
+                    {{ password_form.old_password }}
+                </div>
+                <label style="font-size: medium;">New Password:</label>
+                <div class="field round border fill">
+                    {{ password_form.new_password1 }}
+                </div>
+                <label style="font-size: medium;"">Confirm New Password:</label>
+                <div class="field round border fill">
+                    {{ password_form.new_password2 }}
+                </div>
+                <span class="helptext">{{ password_form.new_password2.errors }}</span>
+                <button class="button primary small-elevate" type="submit">
                     <i class="fa-solid fa-key"></i>
                     Change Password
                 </button>
             </form>
         </fieldset>
-        <div class="small-space center-align middle"></div>
-        <a href="{% url 'reset_password' %}">
-            <button type="submit" class="primary small-elevate">
-                <i class="fa-solid fa-key"></i>
-                Change Password</button>
-        </a>
         <div class="small-space"></div>
     </fieldset>
 
