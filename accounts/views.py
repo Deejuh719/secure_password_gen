@@ -9,10 +9,6 @@ from django.contrib.auth import logout
 from django.contrib.messages.views import SuccessMessageMixin
 from .models import CustomUser
 from django.contrib import messages
-from django.contrib.auth import authenticate, login #new
-from django.shortcuts import render, redirect #new
-from django.contrib.auth.decorators import login_required #new
-from django_otp.plugins.otp_totp.models import TOTPDevice #new
 
 # Create your views here.
 
@@ -55,40 +51,4 @@ class AccountSettingsView(LoginRequiredMixin, FormView):
         messages.success(self.request, "Account settings updated successfully.")
         return super().form_valid(form)
 
-# new
-def login_view(request):
-    error = None
 
-    if request.method == "POST":
-        username = request.POST.get("username")
-        password = request.POST.get("password")
-
-        user = authenticate(request, username=username, password=password)
-
-        if user is not None:
-            # Check if user has 2FA enabled
-            if TOTPDevice.objects.filter(user=user, confirmed=True).exists():
-                # Store user in session for 2FA verification
-                request.session["user_id_for_2fa"] = user.id
-                return redirect("verify_2fa")
-            else:
-                # No 2FA, log in directly
-                login(request, user)
-                return redirect("home")
-        else:
-            error = "Invalid username or password"
-
-    return render(request, "registration/login.html", {"error": error})
-
-@login_required
-def account_settings(request):
-    """View for account settings page with 2FA options"""
-    has_2fa = TOTPDevice.objects.filter(user=request.user, confirmed=True).exists()
-
-    return render(
-        request,
-        "accounts/account_settings.html",
-        {
-            "has_2fa": has_2fa,
-        },
-    )

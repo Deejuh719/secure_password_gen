@@ -37,26 +37,27 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    'crispy_forms',
-    'crispy_bootstrap5',
-    'accounts',
-    'pages',
-    'passwords',
-    'django_otp',
-    'django_otp.plugins.otp_totp',
-    'django_otp.plugins.otp_static',
+    "crispy_forms",
+    "crispy_bootstrap5",
+    "accounts",
+    "pages",
+    "django_otp", # new
+    "django_otp.plugins.otp_totp",  # new
+    "two_factor",  # new
+    'django_otp.plugins.otp_static', # new
+    "two_factor.plugins.phonenumber",  # new
+    "passwords",
 ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
-    "django_otp.middleware.OTPMiddleware",
-    "django.contrib.messages.middleware.MessageMiddleware",
-    "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    'django_otp.middleware.OTPMiddleware', #new
 ]
 
 ROOT_URLCONF = "core.urls"
@@ -145,11 +146,4 @@ AUTH_USER_MODEL = 'accounts.CustomUser'
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
 
-TWO_FACTOR_SMS_GATEWAY = 'two_factor.gateways.fake.Fake'
-
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
-AUTHENTICATION_BACKENDS = [
-    "accounts.auth.OptionalTwoFactorBackend",
-    "django.contrib.auth.backends.ModelBackend",
-]

@@ -6,9 +6,7 @@ from .views import (SignUpView, PasswordChangeView,
 urlpatterns = [
     path('login/', views.login_view, name='login'),
     path('settings/', views.account_settings, name='account_settings'),
-    path('2fa/setup/', two_factor_views.setup_2fa, name='setup_2fa'), #new
-    path('2fa/disable/', two_factor_views.disable_2fa, name='disable_2fa'), #new
-    path('2fa/verify/', two_factor_views.verify_2fa, name='verify_2fa'), #new
+    path('logout/', views.logout_view, name='logout'),
     path("signup/", SignUpView.as_view(), name="signup"),
     path("password_change/", PasswordChangeView.as_view(), name="reset_password"),
     path("password_change/done/", PasswordChangeDoneView.as_view(), name="password_change_done"),
