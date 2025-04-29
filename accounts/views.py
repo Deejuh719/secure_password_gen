@@ -9,10 +9,9 @@ from django.contrib.auth import logout
 from django.contrib.messages.views import SuccessMessageMixin
 from .models import CustomUser
 from django.contrib import messages
-from django.contrib.auth.forms import PasswordChangeForm # new
-from django import forms # new
-from django.shortcuts import redirect # new
-from django.contrib.auth import update_session_auth_hash # new
+from django.contrib.auth.forms import PasswordChangeForm 
+from django import forms
+from django.shortcuts import redirect
 
 # Create your views here.
 
@@ -75,5 +74,3 @@ class AccountSettingsView(LoginRequiredMixin, TemplateView):
         context['email_form'] = email_form
         context['password_form'] = password_form
         return self.render_to_response(context)
-
-

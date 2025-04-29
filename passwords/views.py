@@ -6,26 +6,38 @@ from .models import Password
 from .forms import PasswordGeneratorForm, PasswordUpdateForm
 from .utils import generate_password
 from  django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Q, F
+from django.db.models.functions import Lower
 
 # Create your views here.
-# TODO: Maybe make this allow you to filter out passwords by app name? date created??
 class PasswordListView(ListView):
     model = Password
     template_name = 'passwords/password_list.html'
+    context_object_name = 'passwords'
 
     def get_queryset(self):
+        # Search the queryset based on the 'search' parameter
         queryset = Password.objects.filter(user=self.request.user)
         search_query = self.request.GET.get('search', '')
         if search_query:
             queryset = queryset.filter(
-                app_name__icontains=search_query,
-                app_type__icontains=search_query,
-                created_at__icontains=search_query,
+                Q(app_name__icontains=search_query) |
+                Q(app_type__icontains=search_query) |
+                Q(username__icontains=search_query) |
+                Q(url__icontains=search_query)
                 )
-            
+
+        # Sort the queryset based on the 'sort' parameter
         sort_by = self.request.GET.get('sort', 'app_name')
-        if sort_by in ['app_name', 'app_type', 'date_created']:
-            queryset = queryset.order_by(sort_by)
+        sort_order = self.request.GET.get('order', 'asc')
+        if sort_by in ['app_name', 'app_type', 'created_at', 'updated_at', 'username', 'url']:
+            if sort_order == 'desc':
+                queryset = queryset.annotate(lower_sort=Lower(sort_by)).order_by(F('lower_sort').desc())
+            else:
+                queryset = queryset.annotate(lower_sort=Lower(sort_by)).order_by(F('lower_sort').asc())
+        else:
+            queryset = queryset.annotate(lower_sort=Lower('app_name')).order_by('lower_sort')  # Default sort
+
         return queryset
     
     def get_context_data(self, **kwargs):

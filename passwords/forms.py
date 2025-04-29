@@ -33,5 +33,8 @@ class PasswordUpdateForm(forms.ModelForm):
 
         def __init__ (self, *args, **kwargs):
             super().__init__(*args, **kwargs)
-
+            self.fields['app_name'].disabled = False
+            self.fields['url'].disabled = False
+            self.fields['username'].disabled = False
+            self.fields['app_type'].disabled = False
     
