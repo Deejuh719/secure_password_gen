@@ -14,7 +14,25 @@ class PasswordListView(ListView):
     template_name = 'passwords/password_list.html'
 
     def get_queryset(self):
-        return Password.objects.filter(user=self.request.user)
+        queryset = Password.objects.filter(user=self.request.user)
+        search_query = self.request.GET.get('search', '')
+        if search_query:
+            queryset = queryset.filter(
+                app_name__icontains=search_query,
+                app_type__icontains=search_query,
+                created_at__icontains=search_query,
+                )
+            
+        sort_by = self.request.GET.get('sort', 'app_name')
+        if sort_by in ['app_name', 'app_type', 'date_created']:
+            queryset = queryset.order_by(sort_by)
+        return queryset
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['search_query'] = self.request.GET.get('search', '')
+        context['sort_by'] = self.request.GET.get('sort', 'app_name')
+        return context
 
 class PasswordDetailView(DetailView):
     model = Password
