@@ -48,14 +48,14 @@ class PasswordUpdateView(LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy('password_detail')
 
     def form_valid(self, form):
-        print(f'Form data: {form.cleaned_data}')
         self.object = form.save(commit=False)
-        print(f'Object before save: {self.object}')
         self.object.app_pass = form.cleaned_data.get('app_pass')
-        print(f'Object after save: {self.object}')
-        self.object.save(update_fields=['app_pass', 'updated_at'])
-        print(f'Password updated for {self.object.pk}')
+        self.object.save()
         return redirect('password_detail', pk=self.object.pk)
+    
+    def form_invalid(self, form):
+        print(form.errors)
+        return self.render_to_response(self.get_context_data(form=form))
     
     def get_queryset(self):
         return Password.objects.filter(user=self.request.user)
@@ -77,6 +77,13 @@ class PasswordRegenerateView(LoginRequiredMixin, UpdateView):
         self.object.app_pass = generated
         self.object.save(update_fields=['app_pass', 'updated_at'])
         return redirect('password_detail', pk=self.object.pk)
+    
+    def form_invalid(self, form):
+        print(form.errors)
+        return self.render_to_response(self.get_context_data(form=form))
+    
+    def get_queryset(self):
+        return Password.objects.filter(user=self.request.user)
 
 class PasswordDeleteView(DeleteView):
     model = Password
