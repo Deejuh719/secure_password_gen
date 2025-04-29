@@ -1,7 +1,7 @@
 import random
 import string
 
-def generate_password(length, use_uppercase=True, use_numbers=True, use_special_chars=True, use_similar=False):
+def generate_password(length, use_numbers=True, use_special_chars=True, use_similar=False):
     characters = string.ascii_lowercase + string.ascii_uppercase
     
     if use_numbers:

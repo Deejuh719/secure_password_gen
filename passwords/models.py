@@ -4,6 +4,7 @@ from django.urls import reverse
 from django.contrib.auth.hashers import make_password
 
 # Create your models here.
+
 class Password(models.Model):
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
@@ -14,6 +15,19 @@ class Password(models.Model):
     url = models.URLField(blank=True)
     username = models.CharField(max_length=255)
     app_pass = models.CharField(max_length=255)
+    APP_CATEGORIES = (
+        ("Social Media", "Social Media"),
+        ("Email", "Email"),
+        ("Personal", "Personal"),
+        ("Entertainment", "Entertainment"),
+        ("Work", "Work"),
+        ("Other", "Other"),
+    )
+    app_type = models.CharField(
+        max_length=255,
+        choices=APP_CATEGORIES,
+        default="Other",
+    )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

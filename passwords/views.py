@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
@@ -45,46 +45,38 @@ class PasswordUpdateView(LoginRequiredMixin, UpdateView):
     model = Password
     form_class = PasswordUpdateForm
     template_name = 'passwords/password_update.html'
-    success_url = reverse_lazy('password_list')
+    success_url = reverse_lazy('password_detail')
 
     def form_valid(self, form):
-        original_created_at = self.object.created_at
-        action = self.request.POST.get('action')
-        if action == 'generate':
-            generated = generate_password(
-                form.cleaned_data['length'],
-                form.cleaned_data['include_numbers'],
-                form.cleaned_data['include_special'],
-                form.cleaned_data['include_similar'],
-            )
-            form.instance.app_pass = generated
-
-            return self.render_to_response(self.get_context_data(
-                form=form,
-                generated_password=generated
-                ))
-        form.instance.created_at = original_created_at
-        form.save(update_fields=['app_pass', 'updated_at'])
-
-        return super().form_valid(form)
-
+        print(f'Form data: {form.cleaned_data}')
+        self.object = form.save(commit=False)
+        print(f'Object before save: {self.object}')
+        self.object.app_pass = form.cleaned_data.get('app_pass')
+        print(f'Object after save: {self.object}')
+        self.object.save(update_fields=['app_pass', 'updated_at'])
+        print(f'Password updated for {self.object.pk}')
+        return redirect('password_detail', pk=self.object.pk)
+    
     def get_queryset(self):
         return Password.objects.filter(user=self.request.user)
 
-def generate_password(request):
-    if request.method == 'POST':
-        form = PasswordGeneratorForm(request.POST)
-        if form.is_valid():
-            generated = generate_password(
-                form.cleaned_data['length'],
-                form.cleaned_data['include_numbers'],
-                form.cleaned_data['include_special'],
-                form.cleaned_data['include_similar'],
-            )
-            return render(request, 'passwords/password_detail.html', {'generated_password': generated})
-    else:
-        form = PasswordGeneratorForm()
-    return render(request, 'passwords/password_create.html', {'form': form})
+class PasswordRegenerateView(LoginRequiredMixin, UpdateView):
+    model = Password
+    form_class = PasswordGeneratorForm
+    template_name = 'passwords/password_regenerate.html'
+    success_url = reverse_lazy('password_detail')
+
+    def form_valid(self, form):
+        generated = generate_password(
+            form.cleaned_data.get('length', 12),
+            form.cleaned_data.get('include_numbers', True),
+            form.cleaned_data.get('include_special', True),
+            form.cleaned_data.get('include_similar', False),
+        )
+        self.object = form.save(commit=False)
+        self.object.app_pass = generated
+        self.object.save(update_fields=['app_pass', 'updated_at'])
+        return redirect('password_detail', pk=self.object.pk)
 
 class PasswordDeleteView(DeleteView):
     model = Password
