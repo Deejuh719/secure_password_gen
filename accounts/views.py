@@ -9,9 +9,18 @@ from django.contrib.auth import logout
 from django.contrib.messages.views import SuccessMessageMixin
 from .models import CustomUser
 from django.contrib import messages
+from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm 
 from django import forms
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
+from django.contrib.auth.decorators import login_required # Added
+from qrcode import make as make_qr # Added
+from io import BytesIO # Added
+import base64 # Added
+from django.http import HttpResponse  # Added
+import pyotp # Added
+from django.contrib.auth import authenticate, login  # Added
+from django.shortcuts import render  # Added
 
 # Create your views here.
 
@@ -74,3 +83,55 @@ class AccountSettingsView(LoginRequiredMixin, TemplateView):
         context['email_form'] = email_form
         context['password_form'] = password_form
         return self.render_to_response(context)
+
+@login_required
+def enable_2fa(request):
+    user = request.user
+
+    if request.method == "POST":
+        # Generate a TOTP secret
+        totp = pyotp.TOTP(pyotp.random_base32())
+        user.mfa_secret = totp.secret
+        user.mfa_enabled = True
+        user.save()
+
+        messages.success(request, "Two-Factor Authentication has been enabled.")
+        return redirect("account_settings")
+
+    # Generate a QR code for the TOTP secret
+    if not user.mfa_secret:
+        totp = pyotp.TOTP(pyotp.random_base32())
+        user.mfa_secret = totp.secret
+        user.save()
+
+    totp = pyotp.TOTP(user.mfa_secret)
+    qr_code_data = totp.provisioning_uri(user.email, issuer_name="GimmePasswords")
+    qr_code = make_qr(qr_code_data)
+    qr_code_io = BytesIO()
+    qr_code.save(qr_code_io, format="PNG")
+    qr_code_base64 = base64.b64encode(qr_code_io.getvalue()).decode('utf-8')
+
+    return render(request, "accounts/enable_2fa.html", {"qr_code": qr_code_base64})
+
+def login_with_2fa(request):  # Added
+    if request.method == "POST":
+        username = request.POST.get("username")
+        password = request.POST.get("password")
+        otp = request.POST.get("otp")
+
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            if user.mfa_enabled:
+                totp = pyotp.TOTP(user.mfa_secret)
+                if totp.verify(otp):
+                    login(request, user)
+                    return redirect("home")
+                else:
+                    messages.error(request, "Invalid OTP.")
+            else:
+                login(request, user)
+                return redirect("home")
+        else:
+            messages.error(request, "Invalid username or password.")
+
+    return render(request, "registration/login.html")

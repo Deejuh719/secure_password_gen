@@ -16,6 +16,12 @@
             <div class="field round border fill">
                 <input type="password" name="password" placeholder="Password" required id="id_password">
             </div>
+            <span class="helptext">{{ form.password.errors }}</span>
+        <!--Tried to be real cool and add a 2FA field, but it didn't work
+            <legend>OTP Code (If Enabled): </legend>
+        <div class="field round border fill">
+            <input type="text" name="otp_code" placeholder="OTP Code" required id="id_otp_code">
+        </div>-->
     </fieldset>
     <br />
     <button class="primary small-elevate " type="submit">

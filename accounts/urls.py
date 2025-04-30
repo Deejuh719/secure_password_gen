@@ -1,7 +1,8 @@
 from django.urls import path
 from . import views
 from .views import (SignUpView, PasswordChangeView, 
-                    PasswordChangeDoneView, AccountDeleteView, AccountSettingsView)
+                    PasswordChangeDoneView, AccountDeleteView, AccountSettingsView,
+                    enable_2fa, login_with_2fa)
 
 urlpatterns = [
     path('account/', views.AccountSettingsView.as_view(), name='account_settings'),
@@ -13,4 +14,6 @@ urlpatterns = [
     path("account_settings/", AccountSettingsView.as_view(), name="account_settings"),
     path("password_change/", AccountSettingsView.as_view(), name="password_change"),
     path("update_email/", AccountSettingsView.as_view(), name="update_email"),
+    path("enable_2fa/", enable_2fa, name="enable_2fa"),
+    #path("login/", login_with_2fa, name="login"),
 ]
