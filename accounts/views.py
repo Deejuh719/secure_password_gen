@@ -14,7 +14,6 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django import forms
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required # Added
-from qrcode import make as make_qr # Added
 from io import BytesIO # Added
 import base64 # Added
 from django.http import HttpResponse  # Added
