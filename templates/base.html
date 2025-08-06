@@ -9,6 +9,39 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <title>{%block title%}Gimme Passwords Please!{%endblock title%}</title>
+    <style>
+        .centered {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .center-heading {
+            text-align: center;
+            padding: 2%;
+        }
+
+        .center-text {
+            text-align: center;
+            padding: 2%;
+            font-size: 1.2em;
+        }
+
+        #login-signup-buttons {
+            display: block;
+            margin: auto;
+        }
+
+        .big-text {
+            font-size: 1.5em;
+        }
+
+        .small-center-text {
+            text-align: center;
+            padding: 2%;
+            font-size: .9em;
+        }
+    </style>
 </head>
 <body>
     {% if user.is_authenticated %}
