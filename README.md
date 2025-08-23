@@ -20,3 +20,8 @@ The project itself is <strong>not complete</strong> and certain features are onl
 As I go along, I'll figure out more I want to add. If you play with this yourself, do feel free to add your own branch with updates. As I will be adding updates as well when I get around to it.
 
 #### Play with it, have fun with it. Will probably delete the requirements.txt and reupdate that as there are several things in it that were required for things that didn't work
+
+## 08/23/2025 Update:
+1. Since I am including this as a part of my portfolio, I created an active website for it so that it can be tested and used online as a functional tool.
+  Site: [Gimme Passwords Please!](https://www.secure-password-gen.onrender.com)
+2. Also did a minor tweak to the code to make it more mobile friendly (considering I've decided to play with it on my phone for the first time today and learned that I had forgotten to do that)
