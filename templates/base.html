@@ -45,7 +45,7 @@
 </head>
 <body>
     {% if user.is_authenticated %}
-    <nav class="tabbed">
+    <nav class="left>
         <a href="{% url 'home' %}">
             <i class="fa-solid fa-house"></i>
             <div>Home</div>
@@ -76,7 +76,7 @@
 
     {% else %}
     
-    <nav class="tabbed small">
+    <nav class="left">
         <a href="{% url 'home' %}">
             <i class="fa-solid fa-house"></i>
             <div>Home</div>
