@@ -18,12 +18,12 @@
 
         .center-heading {
             text-align: center;
-            padding: 2%;
+            padding: auto;
         }
 
         .center-text {
             text-align: center;
-            padding: 2%;
+            padding: auto;
             font-size: 1.2em;
         }
 
@@ -38,12 +38,12 @@
 
         .small-center-text {
             text-align: center;
-            padding: 2%;
+            padding: auto;
             font-size: .9em;
         }
     </style>
 </head>
-<body class="responsive">
+<body>
     {% if user.is_authenticated %}
     <nav class="tabbed">
         <a href="{% url 'home' %}">
