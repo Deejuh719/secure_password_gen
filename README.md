@@ -25,3 +25,6 @@ As I go along, I'll figure out more I want to add. If you play with this yoursel
 1. Since I am including this as a part of my portfolio, I created an active website for it so that it can be tested and used online as a functional tool.
   Site: [Gimme Passwords Please!](https://secure-password-gen.onrender.com)
 2. Also did a minor tweak to the code to make it more mobile friendly (considering I've decided to play with it on my phone for the first time today and learned that I had forgotten to do that)
+
+## 09/30/2025 Update:
+As I am currently in classes that are improving my skills with TDD, Test Automation, Flask, and Python programming, I am going to build upon the code from the ground up to better establish what I already have as well as what I had wanted to acheive in the beginning. Code will be updated as I go along and find time. Will continue to update `README` as I do.
