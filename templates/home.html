@@ -4,8 +4,8 @@
 {% if user.is_authenticated %}
 <div class="page top active center-text">
         <h4>Welcome Back {{user.username}}!</h4>
-        <p>Do you require a <a href="{% url 'password_create' %}">new password</a>?</p>
-        <p>Or do you want to see your <a href="{% url 'password_list' %}">other passwords</a>?</p>
+        <p>Do you require a <a href="{% url 'password_create' %}" aria-label="New Password">new password</a>?</p>
+        <p>Or do you want to see your <a href="{% url 'password_list' %}" aria-label="Password List">other passwords</a>?</p>
 </div>
 
 {% else %}
@@ -17,7 +17,7 @@
     width="250" height="300">
         <summary>
             <article class="round primary small-elevate">
-                <nav>
+                <nav aria-label="About">
                     <div class="max"><h5>We know why you're here...</h5></div>
                     <i>expand_more</i>
                 </nav>
@@ -34,7 +34,7 @@
 <details>
         <summary>
             <article class="round small-elevate">
-                <nav>
+                <nav aria-label="How It Works">
                     <div class="max"><h5>How does it work?</h5></div>
                     <i>expand_more</i>
                 </nav>
@@ -55,12 +55,12 @@
     <br />
     <div class="small-space">
         <a href="{% url 'login' %}">
-        <button class="small tertiary small-elevate" id="login-signup-buttons">
+        <button class="small tertiary small-elevate" id="login-signup-buttons" aria-label="Login Button">
             <img src="https://img.icons8.com/?size=100&id=61050&format=png&color=000000" alt="log in icon" width="20" height="20">
             Log In</button></a>
         <div class="small-space"></div>
         <a href="{% url 'signup' %}">
-        <button class="small primary small-elevate" id="login-signup-buttons">
+        <button class="small primary small-elevate" id="login-signup-buttons" aria-label="Signup Button">
             <img src="https://img.icons8.com/?size=100&id=23374&format=png&color=000000" alt="sign up icon" width="20" height="20">
             Sign Up</button></a>
     </div>
