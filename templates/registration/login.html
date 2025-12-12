@@ -10,11 +10,11 @@
         {{ form.non_field_errors }}
         <legend> Username </legend>
         <div class="field round border fill">
-            <input type="text" name="username" placeholder="Username" required id="id_username">
+            <input type="text" name="username" placeholder="Username" required id="id_username" aria-label="Username">
         </div>
         <legend> Password </legend>
             <div class="field round border fill">
-                <input type="password" name="password" placeholder="Password" required id="id_password">
+                <input type="password" name="password" placeholder="Password" required id="id_password" aria-label="Password">
             </div>
             <span class="helptext">{{ form.password.errors }}</span>
         <!--Tried to be real cool and add a 2FA field, but it didn't work
@@ -24,14 +24,14 @@
         </div>-->
     </fieldset>
     <br />
-    <button class="primary small-elevate " type="submit">
+    <button class="primary small-elevate " type="submit" aria-label="Submit">
         <i class="fa-solid fa-check"></i>
         Log In
     </button>
 </form>
 <div class="right-align">
     <a href="{% url 'password_reset' %}">
-        <button class="error small-elevate">
+        <button class="error small-elevate" aria-label="Forgot Password">
             Forgot Password? 
         </button>
     </a>

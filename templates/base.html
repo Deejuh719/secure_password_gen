@@ -45,12 +45,12 @@
 </head>
 <body>
     {% if user.is_authenticated %}
-    <nav class="left">
-        <a href="{% url 'home' %}">
+    <nav class="left" aria-label="Navbar">
+        <a href="{% url 'home' %}" aria-label="Home Page">
             <i class="fa-solid fa-house"></i>
             <div>Home</div>
         </a>
-        <a href="{% url 'password_create' %}">
+        <a href="{% url 'password_create' %}" aria-label="Create Password">
             <i>
                 <i class="fa-solid fa-circle-plus"></i>
             </i>
@@ -60,11 +60,11 @@
             <i class="fa-solid fa-lock"></i>
             <div>Your Passwords</div>
         </a>
-        <a href="{% url 'account_settings' %}">
+        <a href="{% url 'account_settings' %}" aria-label="Account Settings">
             <i class="fa-solid fa-user-gear"></i>
             <div>Account Settings</div>
         </a>
-        <a href="#" onclick="document.getElementById('logout').submit()" class="btn">
+        <a href="#" onclick="document.getElementById('logout').submit()" class="btn" aria-label="Log Out">
             <i class="fas fa-sign-out-alt"></i>
             <div>Log Out</div>
         </a>
@@ -76,16 +76,16 @@
 
     {% else %}
     
-    <nav class="left">
-        <a href="{% url 'home' %}">
+    <nav class="left" aria-label="Navbar">
+        <a href="{% url 'home' %}" aria-label="Home Page">
             <i class="fa-solid fa-house"></i>
             <div>Home</div>
         </a>
-        <a href="{% url 'signup' %}">
+        <a href="{% url 'signup' %}" aria-label="Sign Up">
             <i class="fa-solid fa-user-plus"></i>
             <div>Create Account</div>
         </a>
-        <a href="{% url 'login' %}">
+        <a href="{% url 'login' %}" aria-label="Log In">
             <i class="fa-solid fa-right-to-bracket"></i>
             <div>Log In</div>
         </a>
