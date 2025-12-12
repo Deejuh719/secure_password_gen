@@ -28,3 +28,13 @@ As I go along, I'll figure out more I want to add. If you play with this yoursel
 
 ## 09/30/2025 Update:
 As I am currently in classes that are improving my skills with TDD, Test Automation, Flask, and Python programming, I am going to build upon the code from the ground up to better establish what I already have as well as what I had wanted to acheive in the beginning. Code will be updated as I go along and find time. Will continue to update `README` as I do.
+
+## 12/12/2025 - Refactoring
+With furthered skills in automated testing, I am currently refactoring all code and remodelling testing. Plans of what to add:
+  * Better `pytest` automation
+  * Robot Framework
+  * Playwright and Selenium tests
+
+I also intend to include:
+  * Accessibility features
+  * Overall technical improvements (including but not limited to altering the 2FA, better responsivity, etc.)
