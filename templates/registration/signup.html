@@ -10,28 +10,28 @@
         <legend>Sign Up</legend>
         {{ form.non_field_errors }}
         <span>Username</span>
-        <div class="field border round fill">
+        <div class="field border round fill" aria-label="Username">
             {{ form.username }}
         </div>
         <span class="helptext"> {{ form.username.errors}} </span>
         <span>Email</span>
-        <div class="field border round fill">
+        <div class="field border round fill" aria-label="Email address">
             {{ form.email }}
         </div>
         <span class="helptext"> {{ form.email.errors }} </span>
         <span>Create Password</span>
-        <div class="field border round fill">
+        <div class="field border round fill" aria-label="Enter Password">
             {{ form.password1 }}
         </div>
         <span class="helptext"> {{ form.password1.errors }} </span>
         <span>Confirm Password</span>
-        <div class="field border round fill">
+        <div class="field border round fill" aria-label="Repeat Password">
             {{ form.password2 }}
         </div>
         <span class="helptext"> {{ form.password2.errors }} </span>
     </fieldset>
     <div class="small-space"></div>
-    <button class="small small-elevate fill" type="submit">
+    <button class="small small-elevate fill" type="submit" aria-label="Submit">
     <i class="fa-solid fa-user-plus"></i>
     Sign Up
 </button>
